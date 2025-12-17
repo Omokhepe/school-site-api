@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('note_contents', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('note_id')->constrained('notes')->cascadeOnDelete();
+            $table->string('subtitle')->nullable();
+            $table->longText('content')->nullable();
+            $table->enum('type',['text', 'image'])->default('text');
+            $table->string('image_path')->nullable();
+            $table->integer('order')->default(1);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('note_contents');
+    }
+};
