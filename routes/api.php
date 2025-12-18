@@ -97,3 +97,12 @@ Route::get('/debug', function () {
         return $e->getMessage();
     }
 });
+
+Route::get('/dbcheck', function () {
+    return [
+        'driver' => env('DB_CONNECTION'),
+        'host' => env('DB_HOST'),
+        'database' => env('DB_DATABASE'),
+        'username' => env('DB_USERNAME')
+    ];
+});

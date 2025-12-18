@@ -22,8 +22,8 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 # App configuration
 RUN php artisan storage:link || true
 RUN php artisan config:clear
-RUN php artisan config:cache
-RUN php artisan route:cache
+# RUN php artisan config:cache
+# RUN php artisan route:cache
 
 RUN chmod -R 775 storage bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
