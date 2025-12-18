@@ -88,3 +88,12 @@ Route::get('/debug/tables', function () {
     // return DB::select("SELECT * FROM users WHERE id = 4;");
     
 });
+
+Route::get('/debug', function () {
+    try {
+        DB::connection()->getPdo();
+        return 'Database OK';
+    } catch (\Exception $e) {
+        return $e->getMessage();
+    }
+});
