@@ -99,7 +99,7 @@ return [
     */
 
     'batching' => [
-        'database' => env('DB_CONNECTION', 'sqlite'),
+        'database' => env('DB_CONNECTION', 'pqsql'),
         'table' => 'job_batches',
     ],
 

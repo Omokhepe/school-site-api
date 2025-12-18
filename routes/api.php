@@ -83,11 +83,11 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/announcements/active', [AnnouncementController::class, 'activeAnnouncement']); 
 
 
-Route::get('/debug/tables', function () {
-    return DB::select("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
-    // return DB::select("SELECT * FROM users WHERE id = 4;");
+// Route::get('/debug/tables', function () {
+//     return DB::select("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
+//     // return DB::select("SELECT * FROM users WHERE id = 4;");
     
-});
+// });
 
 Route::get('/debug', function () {
     try {
