@@ -1,22 +1,48 @@
-FROM serversideup/php:8.3-fpm-nginx
+FROM php:8.3-fpm
 
-# optional extensions you need
-RUN install-php-extensions \
-    pdo pdo_mysql mbstring zip exif pcntl bcmath
+# System packages
+RUN apt-get update && apt-get install -y \
+    nginx \
+    supervisor \
+    zip \
+    unzip \
+    git \
+    curl \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libpq-dev \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip bcmath
 
-# copy app code
-COPY . /var/www/html
+# Configure Nginx
+RUN mkdir -p /run/nginx
+COPY ./docker/nginx.conf /etc/nginx/nginx.conf
 
-# set Laravel permissions
-RUN chown -R webuser:webgroup /var/www/html/storage \
-    && chown -R webuser:webgroup /var/www/html/bootstrap/cache
+# Working directory
+WORKDIR /var/www/html
 
-# install composer dependencies
+# Copy app source
+COPY . .
+
+# Environment permissions
+RUN chmod -R 775 storage bootstrap/cache \
+    && chown -R www-data:www-data storage bootstrap/cache
+
+# Composer installation
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Install vendor packages
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Laravel config cache
+# Laravel optimization
 RUN php artisan key:generate --force \
     && php artisan config:cache \
     && php artisan route:cache
 
+# Supervisor config
+COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 EXPOSE 8080
+
+CMD ["/usr/bin/supervisord"]
