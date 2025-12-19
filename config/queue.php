@@ -99,7 +99,7 @@ return [
     */
 
     'batching' => [
-        'database' => env('DB_CONNECTION', 'pqsql'),
+        'database' => env('DB_CONNECTION', 'pgsql'),
         'table' => 'job_batches',
     ],
 

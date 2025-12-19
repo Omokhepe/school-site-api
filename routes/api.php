@@ -106,3 +106,9 @@ Route::get('/dbcheck', function () {
         'username' => env('DB_USERNAME')
     ];
 });
+
+Route::get('/health', fn() => 'OK');
+
+Route::get('/dbcheckAgain', function () {
+    return config('database.default');
+});
