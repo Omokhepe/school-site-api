@@ -31,7 +31,7 @@ return [
     | The frontend URLs allowed to access this API.
     |
     */
-    'allowed_origins' => explode(',', env('FRONTEND_URLS', 'http://localhost:3000')),
+    'allowed_origins' => array_map('trim', explode(',', env('FRONTEND_URLS') )),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,4 +77,3 @@ return [
     */
     'supports_credentials' => true,
 ];
-

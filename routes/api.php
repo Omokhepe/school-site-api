@@ -112,3 +112,7 @@ Route::get('/health', fn() => 'OK');
 Route::get('/dbcheckAgain', function () {
     return config('database.default');
 });
+
+Route::get('/cors-test', function () {
+    return env('FRONTEND_URLS');
+});
