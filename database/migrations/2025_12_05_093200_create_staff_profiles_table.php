@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('staff_profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->string('user_id');
             $table->string('highest_education');
             // $table->string('degree');
             $table->string('course');

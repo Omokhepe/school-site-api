@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('message');
             $table->date('start_date');
             $table->date('end_date');
-            $table->date('created_by');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
